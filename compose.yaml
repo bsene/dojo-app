@@ -1,0 +1,17 @@
+services:
+  app:
+    env_file: .env
+    build: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/${MONGO_DBNAME}
+    volumes:
+      - "./backend:/app"
+  mongo:
+    env_file: .env
+    image: mongo
+    ports:
+      - "27017:27017"
